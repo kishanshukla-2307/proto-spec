@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package account_svc_v1;
+
+import "account-svc/v1/types.proto";
+import "account-svc/v1/user.proto";
+import "account-svc/v1/organization.proto";
+import "account-svc/v1/wallet.proto";
+import "account-svc/v1/safe.proto";
+import "account-svc/v1/role.proto";
+import "account-svc/v1/asset.proto";
+
+service AccountSvc {
+  // User management 
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {}
+  rpc AssignUserRole(AssignUserRoleRequest) returns (AssignUserRoleResponse) {}
+  rpc RevokeUserRole(RevokeUserRoleRequest) returns (RevokeUserRoleResponse) {}
+  
+  // Organization operations
+  rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {}
+  rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {}
+  rpc UpdateOrganization(UpdateOrganizationRequest) returns (UpdateOrganizationResponse) {}
+  rpc ListOrganizations(ListOrganizationsRequest) returns (ListOrganizationsResponse) {}
+
+  // Safe operations
+  rpc CreateSafe(CreateSafeRequest) returns (CreateSafeResponse) {}
+  rpc GetSafe(GetSafeRequest) returns (GetSafeResponse) {}
+  rpc UpdateSafe(UpdateSafeRequest) returns (UpdateSafeResponse) {}
+  rpc ListSafes(ListSafesRequest) returns (ListSafesResponse) {}
+  
+  // Wallet operations
+  rpc CreateWallet(CreateWalletRequest) returns (CreateWalletResponse) {}
+  rpc GetWallet(GetWalletRequest) returns (GetWalletResponse) {}
+  rpc UpdateWallet(UpdateWalletRequest) returns (UpdateWalletResponse) {}
+  rpc ListWallets(ListWalletsRequest) returns (ListWalletsResponse) {}
+  
+  // Role operations
+  rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse) {}
+  rpc GetRole(GetRoleRequest) returns (GetRoleResponse) {}
+  rpc UpdateRole(UpdateRoleRequest) returns (UpdateRoleResponse) {}
+  rpc ListRoles(ListRolesRequest) returns (ListRolesResponse) {}
+  
+  // Asset operations
+  rpc GetAsset(GetAssetRequest) returns (GetAssetResponse) {}
+  rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse) {}
+  rpc GetAssetType(GetAssetTypeRequest) returns (GetAssetTypeResponse) {}
+  rpc ListAssetTypes(ListAssetTypesRequest) returns (ListAssetTypesResponse) {}
+}

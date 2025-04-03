@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package account_svc_v1;
+
+
+enum RoleType {
+  READER = 0;
+  TRANSACTOR = 1;
+  ADMIN = 2;
+  OWNER = 3;
+}
+
+// User 
+message User {
+  string id = 1;
+  string organization_id = 2;
+  string ent_logon_id = 3;
+  string service_account = 4;
+  repeated UserRole roles = 5;
+}
+
+message UserRole {
+  string user_id = 1;
+  string role_id = 2;
+}
+
+message Role {
+  string id = 1;
+  string name = 2;
+  RoleType role_type = 3;
+  repeated string permissions = 4;
+}
+
+message Organization {
+  string id = 1;
+  string application_id = 2;
+  string name = 3;
+}
+
+message Safe {
+  string id = 1;
+  string organization_id = 2;
+  string name = 3;
+  string description = 4;
+}
+
+message Wallet {
+  string id = 1;
+  string safe_id = 2;
+  string name = 3;
+  string description = 4;
+  WalletStatus status = 5;
+  string blockchain_address = 6;  // Address from Blockchain Service
+  string key_label = 7;           // Reference to Key in KMS
+}
+
+message Asset {
+  string id = 1;
+  string wallet_id = 2;
+  string asset_type_id = 3;
+  double balance = 4;
+}
+
+message AssetType {
+  string id = 1;
+  string denom = 2;      
+  string description = 4;
+}

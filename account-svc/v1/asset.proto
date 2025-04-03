@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package account_svc_v1;
+
+import "account-svc/v1/types.proto";
+
+// Get asset information
+message GetAssetRequest {
+  string id = 1;
+}
+
+message GetAssetResponse {
+  Asset asset = 1;
+}
+
+// List assets in a wallet
+message ListAssetsRequest {
+  string wallet_id = 1;
+}
+
+message ListAssetsResponse {
+  repeated Asset assets = 1;
+}
+
+// Get asset type information
+message GetAssetTypeRequest {
+  string id = 1;
+}
+
+message GetAssetTypeResponse {
+  AssetType asset_type = 1;
+}
+
+// List asset types
+message ListAssetTypesRequest {
+}
+
+message ListAssetTypesResponse {
+  repeated AssetType asset_types = 1;
+}

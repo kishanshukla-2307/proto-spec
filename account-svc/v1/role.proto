@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package account_svc_v1;
+
+import "account-svc/v1/types.proto";
+
+// Create a new role
+message CreateRoleRequest {
+  string name = 1;
+  RoleType role_type = 2;
+  repeated string permissions = 3;
+}
+
+message CreateRoleResponse {
+  Role role = 1;
+}
+
+// Get role information
+message GetRoleRequest {
+  string id = 1;
+}
+
+message GetRoleResponse {
+  Role role = 1;
+}
+
+// Update role information
+message UpdateRoleRequest {
+  string id = 1;
+  string name = 2;
+  RoleType role_type = 3;
+  repeated string permissions = 4;
+}
+
+message UpdateRoleResponse {
+  Role role = 1;
+}
+
+// List roles
+message ListRolesRequest {
+}
+
+message ListRolesResponse {
+  repeated Role roles = 1;
+}

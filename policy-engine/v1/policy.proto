@@ -1,0 +1,121 @@
+syntax = "proto3";
+
+package policy_engine_v1;
+
+import "policy-engine/v1/types.proto";
+
+// Create a new policy
+message CreatePolicyRequest {
+  string name = 1;
+  string description = 2;
+  PolicyType policy_type = 3;
+  string organization_id = 4;
+  string definition = 5;  // JSON or YAML policy definition
+}
+
+message CreatePolicyResponse {
+  Policy policy = 1;
+}
+
+// Get policy information
+message GetPolicyRequest {
+  string id = 1;
+}
+
+message GetPolicyResponse {
+  Policy policy = 1;
+}
+
+// Update policy information
+message UpdatePolicyRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string definition = 4;
+}
+
+message UpdatePolicyResponse {
+  Policy policy = 1;
+}
+
+// List policies
+message ListPoliciesRequest {
+  string organization_id = 1;
+  PolicyType policy_type = 2;
+  PolicyStatus status = 3;
+  int32 page_size = 4;
+  string page_token = 5;
+}
+
+message ListPoliciesResponse {
+  repeated Policy policies = 1;
+  string next_page_token = 2;
+}
+
+// Activate a policy
+message ActivatePolicyRequest {
+  string id = 1;
+}
+
+message ActivatePolicyResponse {
+  Policy policy = 1;
+}
+
+// Disable a policy
+message DisablePolicyRequest {
+  string id = 1;
+  string reason = 2;
+}
+
+message DisablePolicyResponse {
+  Policy policy = 1;
+}
+
+// Create a new rule
+message CreateRuleRequest {
+  string policy_id = 1;
+  string name = 2;
+  string description = 3;
+  string condition = 4;
+  ActionResult result = 5;
+  uint32 priority = 6;
+}
+
+message CreateRuleResponse {
+  Rule rule = 1;
+}
+
+// Get rule information
+message GetRuleRequest {
+  string id = 1;
+}
+
+message GetRuleResponse {
+  Rule rule = 1;
+}
+
+// Update rule information
+message UpdateRuleRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string condition = 4;
+  ActionResult result = 5;
+  uint32 priority = 6;
+}
+
+message UpdateRuleResponse {
+  Rule rule = 1;
+}
+
+// List rules
+message ListRulesRequest {
+  string policy_id = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListRulesResponse {
+  repeated Rule rules = 1;
+  string next_page_token = 2;
+}

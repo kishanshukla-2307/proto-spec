@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package account_svc_v1;
+
+import "account-svc/v1/types.proto";
+
+// Create a new safe
+message CreateSafeRequest {
+  string organization_id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message CreateSafeResponse {
+  Safe safe = 1;
+}
+
+// Get safe information
+message GetSafeRequest {
+  string id = 1;
+}
+
+message GetSafeResponse {
+  Safe safe = 1;
+}
+
+// Update safe information
+message UpdateSafeRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message UpdateSafeResponse {
+  Safe safe = 1;
+}
+
+// List safes
+message ListSafesRequest {
+  string organization_id = 1;
+}
+
+message ListSafesResponse {
+  repeated Safe safes = 1;
+}

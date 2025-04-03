@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package account_svc_v1;
+
+import "account-svc/v1/types.proto";
+
+// Create a new organization
+message CreateOrganizationRequest {
+  string application_id = 1;
+  string name = 2;
+}
+
+message CreateOrganizationResponse {
+  Organization organization = 1;
+}
+
+// Get organization information
+message GetOrganizationRequest {
+  string id = 1;
+}
+
+message GetOrganizationResponse {
+  Organization organization = 1;
+}
+
+// Update organization information
+message UpdateOrganizationRequest {
+  string id = 1;
+  string name = 2;
+}
+
+message UpdateOrganizationResponse {
+  Organization organization = 1;
+}
+
+// List organizations
+message ListOrganizationsRequest {
+  string application_id = 1;
+}
+
+message ListOrganizationsResponse {
+  repeated Organization organizations = 1;
+}

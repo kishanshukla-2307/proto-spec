@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package account_svc_v1;
+
+import "account-svc/v1/types.proto";
+
+// Create a new wallet
+message CreateWalletRequest {
+  string safe_id = 1;
+  string name = 2;
+  string description = 3;
+  string key_type = 4;  // References KeyType from KMS service
+}
+
+message CreateWalletResponse {
+  Wallet wallet = 1;
+}
+
+// Get wallet information
+message GetWalletRequest {
+  string id = 1;
+}
+
+message GetWalletResponse {
+  Wallet wallet = 1;
+}
+
+// Update wallet information
+message UpdateWalletRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message UpdateWalletResponse {
+  Wallet wallet = 1;
+}
+
+// List wallets
+message ListWalletsRequest {
+  string safe_id = 1;
+}
+
+message ListWalletsResponse {
+  repeated Wallet wallets = 1;
+}

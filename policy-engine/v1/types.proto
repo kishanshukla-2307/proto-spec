@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package policy_engine_v1;
+
+enum PolicyType {
+  // Transaction authorization policy
+  TRANSACTION = 0;
+  // Access control policy
+  ACCESS = 1;
+}
+
+
+enum PolicyStatus {
+  // Policy is active
+  ACTIVE = 0;
+  // Policy is disabled
+  DISABLED = 1;
+}
+
+// Action result
+enum ActionResult {
+  // Action is allowed
+  ALLOW = 0;
+  // Action is denied
+  DENY = 1;
+  // Action requires approval
+  REQUIRES_APPROVAL = 2;
+}
+
+// Transaction evaluation status
+enum EvaluationStatus {
+  // Transaction is approved
+  APPROVED = 0;
+  // Transaction is rejected
+  REJECTED = 1;
+  // Transaction requires additional approvals
+  PENDING_APPROVAL = 2;
+  // Transaction evaluation is in progress
+  IN_PROGRESS = 3;
+}
+
+message Policy {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  PolicyType policy_type = 4;
+  PolicyStatus status = 5;
+  string organization_id = 6; 
+  string definition = 7;      // JSON or YAML policy definition
+}
+
+
+message Rule {
+  string id = 1;
+  string policy_id = 2;
+  string name = 3;
+  string description = 4;
+  string condition = 5;   // Condition expression
+  ActionResult result = 6; // Result if condition matches
+}
+
+// Transaction represents a blockchain transaction to be evaluated
+message Transaction {
+  string id = 1;
+  string wallet_id = 2;
+  string from_address = 3;
+  string to_address = 4;
+  string asset_type = 5;
+  double amount = 6;
+  string user_id = 7;
+  string metadata = 8; 
+}
+
+// TransactionEvaluation represents the evaluation of a transaction
+message TransactionEvaluation {
+  string id = 1;
+  string transaction_id = 2;
+  EvaluationStatus status = 3;
+  repeated string policy_ids = 4; // Policies evaluated
+  repeated RuleEvaluation rule_evaluations = 5;
+}
+
+// RuleEvaluation represents an individual rule evaluation
+message RuleEvaluation {
+  string rule_id = 1;
+  bool matched = 2;
+  ActionResult result = 3;
+}
+
+// ApprovalRequest represents a request for transaction approval
+message ApprovalRequest {
+  string id = 1;
+  string transaction_id = 2;
+  string transaction_evaluation_id = 3;
+  string requested_by = 4;
+  repeated string approver_ids = 5;
+  int32 approvals_required = 6;
+  int32 approvals_received = 7;
+}
+
+// Approval represents an individual approval decision
+message Approval {
+  string id = 1;
+  string approval_request_id = 2;
+  string approver_id = 3;
+  bool approved = 4;
+}

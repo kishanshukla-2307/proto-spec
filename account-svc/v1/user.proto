@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package account_svc_v1;
+
+import "account-svc/v1/types.proto";
+
+// Create a new user
+message CreateUserRequest {
+  string organization_id = 1;
+  string ent_logon_id = 2;
+  string service_account = 3;
+}
+
+message CreateUserResponse {
+  User user = 1;
+}
+
+// Get user information
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+// Update user information
+message UpdateUserRequest {
+  string id = 1;
+  string organization_id = 2;
+}
+
+message UpdateUserResponse {
+  User user = 1;
+}
+
+// List users (with optional filters)
+message ListUsersRequest {
+  string organization_id = 1;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+}
+
+// Assign a role to a user
+message AssignUserRoleRequest {
+  string user_id = 1;
+  string role_id = 2;
+}
+
+message AssignUserRoleResponse {
+  UserRole user_role = 1;
+}
+
+// Revoke a role from a user
+message RevokeUserRoleRequest {
+  string user_id = 1;
+  string role_id = 2;
+}
+
+message RevokeUserRoleResponse {
+  bool success = 1;
+}

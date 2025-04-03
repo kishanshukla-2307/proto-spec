@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package policy_engine_v1;
+
+import "policy-engine/v1/types.proto";
+
+// Create an approval request
+message CreateApprovalRequestRequest {
+  string transaction_id = 1;
+  string transaction_evaluation_id = 2;
+  repeated string approver_ids = 3;
+  int32 approvals_required = 4;
+  int64 expires_at = 5;
+}
+
+message CreateApprovalRequestResponse {
+  ApprovalRequest approval_request = 1;
+}
+
+// Get approval request information
+message GetApprovalRequestRequest {
+  string id = 1;
+}
+
+message GetApprovalRequestResponse {
+  ApprovalRequest approval_request = 1;
+}
+
+// List approval requests
+message ListApprovalRequestsRequest {
+  string transaction_id = 1;
+  string approver_id = 2;  // Approvals requiring this user's approval
+  bool pending_only = 3;   // Only return pending requests
+  int32 page_size = 4;
+  string page_token = 5;
+}
+
+message ListApprovalRequestsResponse {
+  repeated ApprovalRequest approval_requests = 1;
+  string next_page_token = 2;
+}
+
+// Submit an approval decision
+message SubmitApprovalRequest {
+  string approval_request_id = 1;
+  string approver_id = 2;
+  bool approved = 3;
+  string reason = 4;
+}
+
+message SubmitApprovalResponse {
+  Approval approval = 1;
+  ApprovalRequest updated_request = 2;
+  // Current status after this approval
+  bool request_approved = 3;  // True if enough approvals to approve
+  bool request_rejected = 4;  // True if cannot get enough approvals
+}
+
+// Get approval information
+message GetApprovalRequest {
+  string id = 1;
+}
+
+message GetApprovalResponse {
+  Approval approval = 1;
+}
+
+// List approvals
+message ListApprovalsRequest {
+  string approval_request_id = 1;
+  string approver_id = 2;
+  bool approved = 3;
+  int32 page_size = 4;
+  string page_token = 5;
+}
+
+message ListApprovalsResponse {
+  repeated Approval approvals = 1;
+  string next_page_token = 2;
+}

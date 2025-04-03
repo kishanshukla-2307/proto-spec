@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package policy_engine_v1;
+
+import "policy-engine/v1/types.proto";
+
+// Evaluate a transaction against policies
+message EvaluateTransactionRequest {
+  Transaction transaction = 1;
+  repeated string policy_ids = 2;  // Optional: specific policies to evaluate
+}
+
+message EvaluateTransactionResponse {
+  TransactionEvaluation evaluation = 1;
+}
+
+// Get transaction evaluation information
+message GetTransactionEvaluationRequest {
+  string id = 1;
+}
+
+message GetTransactionEvaluationResponse {
+  TransactionEvaluation evaluation = 1;
+}
+
+// List transaction evaluations
+message ListTransactionEvaluationsRequest {
+  string transaction_id = 1;
+  string wallet_id = 2;
+  string user_id = 3;
+  EvaluationStatus status = 4;
+  int64 start_time = 5;
+  int64 end_time = 6;
+  int32 page_size = 7;
+  string page_token = 8;
+}
+
+message ListTransactionEvaluationsResponse {
+  repeated TransactionEvaluation evaluations = 1;
+  string next_page_token = 2;
+}
